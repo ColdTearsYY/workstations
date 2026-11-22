@@ -23,18 +23,21 @@ public class EnderChestCommand implements CommandExecutor {
             return true;
         }
 
-        if (strings.length > 0 && Bukkit.getPlayer(strings[0]) == null) {
-            commandSender.sendMessage(ChatColor.RED + "Couldn't find target player");
+        if (strings.length > 1) {
+            commandSender.sendMessage("Usage: /enderchest [player]");
             return true;
         }
 
         Player player = (Player) commandSender;
-        Player target;
+        Player target = strings.length == 1 ? Bukkit.getPlayerExact(strings[0]) : player;
+        if (target == null) {
+            commandSender.sendMessage(ChatColor.RED + "Couldn't find target player");
+            return true;
+        }
 
-        if (strings.length > 0) {
-            target = Bukkit.getPlayer(strings[0]);
-        } else {
-            target = player;
+        if (target != player && !Bukkit.isOwnedByCurrentRegion(target)) {
+            commandSender.sendMessage(ChatColor.RED + "You can only open an ender chest from a player in the same region");
+            return true;
         }
 
         player.openInventory(target.getEnderChest());
