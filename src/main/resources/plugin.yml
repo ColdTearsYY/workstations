@@ -24,13 +24,13 @@ commands:
       - echest
 permissions:
   workstations.craft:
-    default: true
+    default: false
     description: Use the /craft command
   workstations.enchant:
-    default: true
+    default: false
     description: Use the /enchanting command
   workstations.enderchest:
-    default: true
+    default: false
     description: Use the /enderchest command
   workstations.open_other_enderchests:
     default: op
